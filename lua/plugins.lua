@@ -1,56 +1,130 @@
+-- Reload configurations if we modify plugins.lua
+-- Hint
+--     <afile> - replaced with the filename of the buffer being manipulated
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerSync
+  augroup end
+]])
+
+-- Install plugins here - `use ...`
+-- Packer.nvim hints
+--     after = string or list,           -- Specifies plugins to load before this plugin. See "sequencing" below
+--     config = string or function,      -- Specifies code to run after this plugin is loaded
+--     requires = string or list,        -- Specifies plugin dependencies. See "dependencies". 
+--     ft = string or list,              -- Specifies filetypes which load this plugin.
+--     run = string, function, or table, -- Specify operations to be run after successful installs/updates of a plugin
 return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
+    ---------------------------------------
+    -- NOTE: PUT YOUR THIRD PLUGIN HERE --
+    ---------------------------------------
+    -- Theme
+    use 'tanvirtin/monokai.nvim'
 
-    -- Mason
-
+    -- LSP
     use 'williamboman/mason.nvim'
     use 'williamboman/mason-lspconfig.nvim'
+    use 'neovim/nvim-lspconfig'
+    use {
+        "VonHeikemen/lsp-zero.nvim",
+        requires = {
+            -- Autocompletion
+            {"hrsh7th/nvim-cmp"}, {"hrsh7th/cmp-buffer"}, {"hrsh7th/cmp-path"},
+            {"saadparwaiz1/cmp_luasnip"}, {"hrsh7th/cmp-nvim-lsp"},
+            {"hrsh7th/cmp-nvim-lua"}, {'hrsh7th/cmp-nvim-lsp-signature-help'},
+            {'hrsh7th/cmp-vsnip'}, -- Snippets
+            {"L3MON4D3/LuaSnip"}, {"rafamadriz/friendly-snippets"}
+        }
+    }
 
     -- Rust
-    use 'neovim/nvim-lspconfig'
     use 'simrat39/rust-tools.nvim'
-    use 'nvim-treesitter/nvim-treesitter'
 
-    -- Completion framework:
-    use 'hrsh7th/nvim-cmp'
+    -- PHP
 
-    -- LSP completion source:
-    use 'hrsh7th/cmp-nvim-lsp'
+    use 'onsails/lspkind.nvim'
 
-    -- Useful completion sources:
-    use 'hrsh7th/cmp-nvim-lua'
-    use 'hrsh7th/cmp-nvim-lsp-signature-help'
-    use 'hrsh7th/cmp-vsnip'
-    use 'hrsh7th/cmp-path'
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/vim-vsnip'
-    use 'puremourning/vimspector'
+    -- autocomplete
+    use {
+        'gelguy/wilder.nvim',
+        config = function()
+            -- config goes here
+        end
+    }
 
-    use 'voldikss/vim-floaterm'
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = function()
+            local ts_update = require('nvim-treesitter.install').update({
+                with_sync = true
+            })
+            ts_update()
+        end
+    }
+    use { 'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu' }
 
-    use 'nvim-tree/nvim-tree.lua'
-    use 'nvim-tree/nvim-web-devicons'
+    -- Formater
+    use 'mhartington/formatter.nvim'
 
+    -- UI
+    use {
+        'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons' -- optional
+        }
+    }
+    use({
+        "utilyre/barbecue.nvim",
+        tag = "*",
+        requires = {
+            "SmiteshP/nvim-navic", "nvim-tree/nvim-web-devicons" -- optional dependency
+        },
+        after = "nvim-web-devicons", -- keep this if you're using NvChad
+        config = function() require("barbecue").setup() end
+    })
+    use 'romgrk/barbar.nvim'
+    use 'yamatsum/nvim-cursorline'
+    use({
+        'lewis6991/gitsigns.nvim',
+        config = function() require('gitsigns').setup() end
+    })
+    use {
+        'echasnovski/mini.nvim',
+        config = function()
+            require('mini.map').setup()
+            require('mini.indentscope').setup()
+
+        end
+    }
+
+    -- tools
     use 'folke/todo-comments.nvim'
-    use 'tanvirtin/monokai.nvim'
     use {
         'numToStr/Comment.nvim',
-        config = function()
-            require('Comment').setup()
-        end
+        config = function() require('Comment').setup() end
+    }
+    use {
+        'nvim-telescope/telescope.nvim',
+        tag = '0.1.2',
+        -- or                            , branch = '0.1.x',
+        requires = {{'nvim-lua/plenary.nvim'}}
+    }
+    use {
+        'NeogitOrg/neogit',
+        requires = 'nvim-lua/plenary.nvim',
+        config = function() require("neogit").setup() end
     }
 
     use 'folke/trouble.nvim'
 
-    use 'RRethy/vim-illuminate'
+    -- sync
+    use {'kenn7/vim-arsync', requires = {{'prabirshrestha/async.vim'}}}
 
-    use "nvim-lua/plenary.nvim"
-    use 'BurntSushi/ripgrep'
-    use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.1',
-        requires = { {'nvim-lua/plenary.nvim'} }
-    }
-   -- other plugins...
+    -- Automatically set up your configuration after cloning packer.nvim
+    -- Put this at the end after all plugins
+    if packer_bootstrap then require('packer').sync() end
 end)
