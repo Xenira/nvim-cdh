@@ -40,6 +40,10 @@ return require('packer').startup(function(use)
             {"L3MON4D3/LuaSnip"}, {"rafamadriz/friendly-snippets"}
         }
     }
+		use {
+			 'ray-x/lsp_signature.nvim',
+			 config = function() require('lsp_signature').setup() end
+		}
 
     -- Rust
     use 'simrat39/rust-tools.nvim'
@@ -52,7 +56,11 @@ return require('packer').startup(function(use)
     use {
         'gelguy/wilder.nvim',
         config = function()
-            -- config goes here
+					 require('wilder').setup {
+							modes = {
+								':', '/', '?', '!'
+							}
+					 }
         end
     }
 
@@ -107,6 +115,13 @@ return require('packer').startup(function(use)
         'numToStr/Comment.nvim',
         config = function() require('Comment').setup() end
     }
+		use {
+			 'ThePrimeagen/harpoon',
+			 requires = {"nvim-lua/plenary.nvim"},
+			 config = function()
+					 require("harpoon").setup()
+			 end
+		}
     use {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.2',
@@ -119,7 +134,28 @@ return require('packer').startup(function(use)
         config = function() require("neogit").setup() end
     }
 
-    use 'folke/trouble.nvim'
+    use {'folke/trouble.nvim', config = function() require("trouble").setup() end}
+
+		use {
+    "nvim-neorg/neorg",
+    config = function()
+        require('neorg').setup {
+            load = {
+                ["core.defaults"] = {workspace = 'notes'}, -- Loads default behaviour
+                ["core.concealer"] = {}, -- Adds pretty icons to your documents
+                ["core.dirman"] = { -- Manages Neorg workspaces
+                    config = {
+                        workspaces = {
+                            notes = "~/notes",
+                        },
+                    },
+                },
+            },
+        }
+    end,
+    run = ":Neorg sync-parsers",
+    requires = "nvim-lua/plenary.nvim",
+}
 
     -- sync
     use {'kenn7/vim-arsync', requires = {{'prabirshrestha/async.vim'}}}

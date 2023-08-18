@@ -8,6 +8,7 @@ require('colorscheme')
 require('lsp')
 require('opts')
 require('php')
+require('tree')
 
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
@@ -15,23 +16,10 @@ vim.opt.termguicolors = true
 -- Line numbers
 vim.wo.relativenumber = true
 vim.wo.number = true
-
--- empty setup using defaults
-require("nvim-tree").setup()
-
--- OR setup with some options
-require("nvim-tree").setup({
-  sort_by = "case_sensitive",
-  view = {
-    width = 30,
-  },
-  renderer = {
-    group_empty = true,
-  },
-  filters = {
-    dotfiles = true,
-  },
-})
+vim.o.tabstop = 2
+vim.o.shiftwidth = 3
+vim.o.smartindent = true
+vim.o.autoindent = true
 
 require('nvim-cursorline').setup {
     cursorline = {

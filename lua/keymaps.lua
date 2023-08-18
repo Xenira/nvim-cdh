@@ -56,6 +56,11 @@ vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+-- Harpoon
+vim.keymap.set('n', '<leader>g', '<Cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>', opts)
+vim.keymap.set('n', '<leader>r', '<Cmd>lua require("harpoon.mark").add_file()<CR>', opts)
+vim.keymap.set('n', '<leader>t', '<Cmd>lua require("harpoon.ui").nav_next()<CR>', opts)
+vim.keymap.set('n', '<leader>s', '<Cmd>lua require("harpoon.ui").nav_prev()<CR>', opts)
 
 -- UI --
 -- Barbar
@@ -68,3 +73,5 @@ keymap('n', '<A-c>', '<Cmd>BufferClose<CR>', opts)
 -- CodeActionMenu
 keymap('n', '<leader>a', '<Cmd>CodeActionMenu<CR>', opts)
 keymap('v', '<leader>a', '<Cmd>CodeActionMenu<CR>', opts)
+
+keymap('i', '<C-Tab>', 'copilot#Accept("<CR>")', { expr=true, silent=true })

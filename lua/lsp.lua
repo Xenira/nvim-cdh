@@ -28,7 +28,7 @@ sign({name = 'DiagnosticSignHint', text = ''})
 sign({name = 'DiagnosticSignInfo', text = ''})
 
 vim.diagnostic.config({
-    virtual_text = false,
+    virtual_text = { prefix = '', severity = { 'error' } },
     signs = true,
     update_in_insert = true,
     underline = true,
@@ -58,9 +58,6 @@ lsp.preset("recommended")
 
 local on_attach = function ()
     local opts = {buffer = 0}
-    vim.diagnostic.config({
-        virtual_text = true,
-    })
 
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
