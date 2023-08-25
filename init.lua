@@ -12,17 +12,6 @@ require("tree")
 require("rust_setup")
 require("nav")
 
--- set termguicolors to enable highlight groups
-vim.opt.termguicolors = true
-
--- Line numbers
-vim.wo.relativenumber = true
-vim.wo.number = true
-vim.o.tabstop = 2
-vim.o.shiftwidth = 3
-vim.o.smartindent = true
-vim.o.autoindent = true
-
 require("nvim-cursorline").setup({
 	cursorline = {
 		enable = true,

@@ -1,4 +1,18 @@
- 
+ -- set termguicolors to enable highlight groups
+vim.opt.termguicolors = true
+
+-- Line numbers
+vim.wo.relativenumber = true
+vim.wo.number = true
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.softtabstop = 2
+vim.o.expandtab = true
+vim.o.smartindent = true
+vim.o.autoindent = true
+
+-- Clipboard
+vim.o.clipboard = 'unnamedplus'
 --Set completeopt to have a better completion experience
 -- :help completeopt
 -- menuone: popup even when there's only one match
