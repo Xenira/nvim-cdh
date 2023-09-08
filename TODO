@@ -17,3 +17,10 @@ Maybe:
     Themes:
         ☐ https://github.com/navarasu/onedark.nvim
         ☐ https://github.com/nyoom-engineering/oxocarbon.nvim
+
+
+        `/home/rippi/.local/share/nvim/site/pack/packer/start/vim-illuminate  ║
+        ~                                                        ║  - /home/rippi/.local/share/nvim/site/pack/packer/start/vim-vsnip       ║
+        ~                                                        ║  - /home/rippi/.local/share/nvim/site/pack/packer/start/vimspector      ║
+        ~                                                        ║  - /home/rippi/.local/share/nvim/site/pack/packer/start/ripgrep         ║
+        ~                                                        ║  - /home/rippi/.local/share/nvim/site/pack/packer/start/vim-floaterm

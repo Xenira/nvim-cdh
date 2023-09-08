@@ -24,10 +24,11 @@ require("formatter").setup({
   log_level = vim.log.levels.WARN,
   -- All formatter configurations are opt-in
   filetype = {
-    php = { php_storm_formatter, require("formatter.filetypes.php").php_cs_fixer },
+    php = { require("formatter.filetypes.php").php_cs_fixer },
     js = { require("formatter.filetypes.javascript").prettierd },
     ts = { require("formatter.filetypes.typescript").prettierd },
     json = { require("formatter.filetypes.json").prettierd },
+    scss = { require("formatter.filetypes.css").prettierd },
     -- html = { php_storm_formatter },
     -- twig = { function ()
     -- return defaults.prettier("html")
